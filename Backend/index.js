@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
+const cookieParser = require("cookie-parser");
 
 const { createProduct } = require("./controller/Product");
 const productsRouter = require("./routes/Products");
@@ -13,14 +14,19 @@ const usersRouter = require("./routes/Users");
 const authRouter = require("./routes/Auth");
 const cartRouter = require("./routes/Cart");
 const ordersRouter = require("./routes/Order");
+const { ShowIncommingRequest } = require("./middleware/showIncommingRequests");
 
 //middlewares
 
 server.use(
   cors({
     exposedHeaders: ["X-Total-Count"],
+    credentials: true,
+    origin: ["http://localhost:3000"],
   })
 );
+server.use(ShowIncommingRequest);
+server.use(cookieParser());
 server.use(express.json()); // to parse req.body
 server.use("/products", productsRouter.router);
 server.use("/categories", categoriesRouter.router);
@@ -38,7 +44,7 @@ async function main() {
 }
 
 server.get("/", (req, res) => {
-  res.json({ status: "success" });
+  res.json({ status: "Server is alive!" });
 });
 
 server.listen(process.env.PORT, () => {

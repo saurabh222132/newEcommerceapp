@@ -1,8 +1,9 @@
+import api from "../interceptor/axiosInterceptors";
+
 export function fetchCount(amount = 1) {
-  return new Promise(async (resolve) =>{
-    const response = await fetch('http://localhost:8080') 
-    const data = await response.json()
-    resolve({data})
-  }
-  );
+  return new Promise(async (resolve) => {
+    const response = await api.get("http://localhost:8080");
+    const data = await response.data;
+    resolve({ data });
+  });
 }
