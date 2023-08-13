@@ -23,8 +23,9 @@ export const checkUserAsync = createAsyncThunk(
       const response = await checkUser(loginInfo);
       return response.data;
     } catch (error) {
-      console.log(error);
-      return rejectWithValue(error);
+      console.log("this is the err ", error);
+      console.log(error.response.data.message);
+      return rejectWithValue(error.response.data);
     }
   }
 );

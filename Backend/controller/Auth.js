@@ -64,7 +64,7 @@ exports.loginUser = async (req, res) => {
           .status(200)
           .json({ id: user.id, role: user.role, accessToken: accessToken });
       } else {
-        res.json({ message: "invalid credential!" });
+        res.status(401).json({ message: "invalid credential!" });
       }
     });
   } catch (err) {
