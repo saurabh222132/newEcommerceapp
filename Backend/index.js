@@ -26,7 +26,7 @@ server.use(
     origin: ["http://localhost:3000"],
   })
 );
-server.use(ShowIncommingRequest);
+// server.use(ShowIncommingRequest); it is used to show which request is comming no need for devploy
 server.use(cookieParser());
 server.use(express.json()); // to parse req.body
 server.use("/products", productsRouter.router);
