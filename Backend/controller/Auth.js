@@ -54,6 +54,7 @@ exports.loginUser = async (req, res) => {
 
         res.cookie("jwt", refreshToken, {
           withCredentials: true,
+          secure: true,
           httpOnly: true, // accessible only by browser
           maxAge: 14 * 24 * 60 * 60 * 1000, //after 14  day cookie will authometically deleted from the browser
         });
@@ -128,4 +129,16 @@ exports.refreshToken = async (req, res) => {
       res.json({ accessToken });
     }
   );
+};
+
+exports.Logout = async (req, res) => {
+  console.log("User logged Out! ");
+
+  res
+    .cookie("jwt", "", {
+      httpOnly: true,
+      secure: true,
+      expires: new Date(0),
+    })
+    .send({ message: "success" });
 };

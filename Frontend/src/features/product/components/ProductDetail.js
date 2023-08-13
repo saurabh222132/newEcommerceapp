@@ -1,42 +1,46 @@
-import { useState, useEffect } from 'react';
-import { StarIcon } from '@heroicons/react/20/solid';
-import { RadioGroup } from '@headlessui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchProductByIdAsync, selectProductById, selectProductListStatus } from '../productSlice';
-import { useParams } from 'react-router-dom';
-import { addToCartAsync, selectItems } from '../../cart/cartSlice';
-import { selectLoggedInUser } from '../../auth/authSlice';
-import { discountedPrice } from '../../../app/constants';
-import { useAlert } from 'react-alert';
-import { Grid } from 'react-loader-spinner';
+import { useState, useEffect } from "react";
+import { StarIcon } from "@heroicons/react/20/solid";
+import { RadioGroup } from "@headlessui/react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchProductByIdAsync,
+  selectProductById,
+  selectProductListStatus,
+} from "../productSlice";
+import { useParams } from "react-router-dom";
+import { addToCartAsync, selectItems } from "../../cart/cartSlice";
+import { selectLoggedInUser } from "../../auth/authSlice";
+import { discountedPrice } from "../../../app/constants";
+import { useAlert } from "react-alert";
+import { Grid } from "react-loader-spinner";
 
 // TODO: In server data we will add colors, sizes , highlights. to each product
 
 const colors = [
-  { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
-  { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
-  { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
+  { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
+  { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
+  { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
 ];
 const sizes = [
-  { name: 'XXS', inStock: false },
-  { name: 'XS', inStock: true },
-  { name: 'S', inStock: true },
-  { name: 'M', inStock: true },
-  { name: 'L', inStock: true },
-  { name: 'XL', inStock: true },
-  { name: '2XL', inStock: true },
-  { name: '3XL', inStock: true },
+  { name: "XXS", inStock: false },
+  { name: "XS", inStock: true },
+  { name: "S", inStock: true },
+  { name: "M", inStock: true },
+  { name: "L", inStock: true },
+  { name: "XL", inStock: true },
+  { name: "2XL", inStock: true },
+  { name: "3XL", inStock: true },
 ];
 
 const highlights = [
-  'Hand cut and sewn locally',
-  'Dyed with our proprietary colors',
-  'Pre-washed & pre-shrunk',
-  'Ultra-soft 100% cotton',
+  "Hand cut and sewn locally",
+  "Dyed with our proprietary colors",
+  "Pre-washed & pre-shrunk",
+  "Ultra-soft 100% cotton",
 ];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 }
 
 // TODO : Loading UI
@@ -63,9 +67,9 @@ export default function ProductDetail() {
       };
       dispatch(addToCartAsync(newItem));
       // TODO: it will be based on server response of backend
-      alert.success('Item added to Cart');
+      alert.success("Item added to Cart");
     } else {
-      alert.error('Item Already added');
+      alert.error("Item Already added");
     }
   };
 
@@ -75,7 +79,7 @@ export default function ProductDetail() {
 
   return (
     <div className="bg-white">
-      {status === 'loading' ? (
+      {status === "loading" ? (
         <Grid
           height="80"
           width="80"
@@ -188,9 +192,9 @@ export default function ProductDetail() {
                         key={rating}
                         className={classNames(
                           product.rating > rating
-                            ? 'text-gray-900'
-                            : 'text-gray-200',
-                          'h-5 w-5 flex-shrink-0'
+                            ? "text-gray-900"
+                            : "text-gray-200",
+                          "h-5 w-5 flex-shrink-0"
                         )}
                         aria-hidden="true"
                       />
@@ -221,9 +225,9 @@ export default function ProductDetail() {
                           className={({ active, checked }) =>
                             classNames(
                               color.selectedClass,
-                              active && checked ? 'ring ring-offset-1' : '',
-                              !active && checked ? 'ring-2' : '',
-                              'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none'
+                              active && checked ? "ring ring-offset-1" : "",
+                              !active && checked ? "ring-2" : "",
+                              "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none"
                             )
                           }
                         >
@@ -234,7 +238,7 @@ export default function ProductDetail() {
                             aria-hidden="true"
                             className={classNames(
                               color.class,
-                              'h-8 w-8 rounded-full border border-black border-opacity-10'
+                              "h-8 w-8 rounded-full border border-black border-opacity-10"
                             )}
                           />
                         </RadioGroup.Option>
@@ -247,12 +251,9 @@ export default function ProductDetail() {
                 <div className="mt-10">
                   <div className="flex items-center justify-between">
                     <h3 className="text-sm font-medium text-gray-900">Size</h3>
-                    <a
-                      href="#"
-                      className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                    >
+                    <div className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                       Size guide
-                    </a>
+                    </div>
                   </div>
 
                   <RadioGroup
@@ -272,10 +273,10 @@ export default function ProductDetail() {
                           className={({ active }) =>
                             classNames(
                               size.inStock
-                                ? 'cursor-pointer bg-white text-gray-900 shadow-sm'
-                                : 'cursor-not-allowed bg-gray-50 text-gray-200',
-                              active ? 'ring-2 ring-indigo-500' : '',
-                              'group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6'
+                                ? "cursor-pointer bg-white text-gray-900 shadow-sm"
+                                : "cursor-not-allowed bg-gray-50 text-gray-200",
+                              active ? "ring-2 ring-indigo-500" : "",
+                              "group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6"
                             )
                           }
                         >
@@ -287,11 +288,11 @@ export default function ProductDetail() {
                               {size.inStock ? (
                                 <span
                                   className={classNames(
-                                    active ? 'border' : 'border-2',
+                                    active ? "border" : "border-2",
                                     checked
-                                      ? 'border-indigo-500'
-                                      : 'border-transparent',
-                                    'pointer-events-none absolute -inset-px rounded-md'
+                                      ? "border-indigo-500"
+                                      : "border-transparent",
+                                    "pointer-events-none absolute -inset-px rounded-md"
                                   )}
                                   aria-hidden="true"
                                 />
@@ -352,13 +353,13 @@ export default function ProductDetail() {
                 </h3>
 
                 <div className="mt-4">
-                  <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
+                  <div role="list" className="list-disc space-y-2 pl-4 text-sm">
                     {highlights.map((highlight) => (
                       <li key={highlight} className="text-gray-400">
                         <span className="text-gray-600">{highlight}</span>
                       </li>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               </div>
 

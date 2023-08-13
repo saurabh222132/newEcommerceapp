@@ -3,7 +3,7 @@ import api from "../interceptor/axiosInterceptors";
 export function fetchProductById(id) {
   return new Promise(async (resolve) => {
     //TODO: we will not hard-code server URL here
-    const response = await api.get("http://localhost:8080/products/" + id);
+    const response = await api.get("/products/" + id);
     const data = await response.data;
     resolve({ data });
   });
@@ -11,7 +11,7 @@ export function fetchProductById(id) {
 
 export function createProduct(product) {
   return new Promise(async (resolve) => {
-    const response = await api.post("http://localhost:8080/products/", product);
+    const response = await api.post("/products/", product);
     const data = await response.data;
     resolve({ data });
   });
@@ -19,10 +19,7 @@ export function createProduct(product) {
 
 export function updateProduct(update) {
   return new Promise(async (resolve) => {
-    const response = await api.patch(
-      "http://localhost:8080/products/" + update.id,
-      update
-    );
+    const response = await api.patch("/products/" + update.id, update);
     const data = await response.data;
     // TODO: on server it will only return some info of user (not password)
     resolve({ data });
@@ -56,9 +53,7 @@ export function fetchProductsByFilters(filter, sort, pagination, admin) {
 
   return new Promise(async (resolve) => {
     //TODO: we will not hard-code server URL here
-    const response = await api.get(
-      "http://localhost:8080/products?" + queryString
-    );
+    const response = await api.get("/products?" + queryString);
     const data = await response.data;
     const totalItems = await response.headers.get("X-Total-Count");
     resolve({ data: { products: data, totalItems: +totalItems } });
@@ -67,7 +62,7 @@ export function fetchProductsByFilters(filter, sort, pagination, admin) {
 
 export function fetchCategories() {
   return new Promise(async (resolve) => {
-    const response = await api.get("http://localhost:8080/categories");
+    const response = await api.get("/categories");
     const data = await response.data;
     resolve({ data });
   });
@@ -75,7 +70,7 @@ export function fetchCategories() {
 
 export function fetchBrands() {
   return new Promise(async (resolve) => {
-    const response = await api.get("http://localhost:8080/brands");
+    const response = await api.get("/brands");
     const data = await response.data;
     resolve({ data });
   });

@@ -32,9 +32,12 @@ export function checkUser(loginInfo) {
   });
 }
 
-export function signOut(userId) {
+export function signOut() {
   return new Promise(async (resolve) => {
     // TODO: on server we will remove user session info
-    resolve({ data: "success" });
+    localStorage.removeItem("accessToken");
+    const response = await api.get("/auth/logout");
+
+    resolve({ data: response.data.message });
   });
 }

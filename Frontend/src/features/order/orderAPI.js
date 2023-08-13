@@ -2,7 +2,7 @@ import api from "../interceptor/axiosInterceptors";
 
 export function createOrder(order) {
   return new Promise(async (resolve) => {
-    const response = await api.post("http://localhost:8080/orders", order);
+    const response = await api.post("/orders", order);
     const data = await response.data;
     resolve({ data });
   });
@@ -10,10 +10,7 @@ export function createOrder(order) {
 
 export function updateOrder(order) {
   return new Promise(async (resolve) => {
-    const response = await api.patch(
-      "http://localhost:8080/orders/" + order.id,
-      order
-    );
+    const response = await api.patch("/orders/" + order.id, order);
     const data = await response.data;
     resolve({ data });
   });
@@ -31,9 +28,7 @@ export function fetchAllOrders(sort, pagination) {
 
   return new Promise(async (resolve) => {
     //TODO: we will not hard-code server URL here
-    const response = await api.get(
-      "http://localhost:8080/orders?" + queryString
-    );
+    const response = await api.get("/orders?" + queryString);
     const data = await response.data;
     const totalOrders = await response.headers.get("X-Total-Count");
     resolve({ data: { orders: data, totalOrders: +totalOrders } });
