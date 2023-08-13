@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080", // this is for the local hosted site
-  // baseURL: "https://ecommerce-backend-yawo.onrender.com", // this is for hosted site
+  // baseURL: "http://localhost:8080", // this is for the local hosted site
+  baseURL: "https://ecommerce-backend-yawo.onrender.com", // this is for hosted site
 });
 //======================== Add a request interceptor=================
 api.interceptors.request.use(
