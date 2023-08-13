@@ -23,7 +23,10 @@ server.use(
     exposedHeaders: ["X-Total-Count"],
     credentials: true,
 
-    origin: ["http://localhost:3000"],
+    origin: [
+      "http://localhost:3000",
+      "https://main--stupendous-hotteok-6cf370.netlify.app",
+    ],
   })
 );
 // server.use(ShowIncommingRequest); it is used to show which request is comming no need for devploy
