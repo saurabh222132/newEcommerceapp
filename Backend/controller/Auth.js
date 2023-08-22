@@ -8,7 +8,8 @@ exports.createUser = async (req, res) => {
   const foundUser = await User.findOne({ email: req.body.email });
 
   if (foundUser) {
-    return res.status(201).send({ message: "User already exists!" });
+    res.status(201).send({ message: "User already exists!" });
+    res.end();
   } else {
     const hashedpassword = bcrypt.hashSync(req.body.password, 12);
     req.body["password"] = hashedpassword;

@@ -1,7 +1,7 @@
-import api from "../interceptor/axiosInterceptors";
 import axios from "axios";
+import { authApiBaseUrl } from "../../app/constants";
 
-const baseURL = "http://localhost:8080";
+const baseURL = authApiBaseUrl;
 
 export function createUser(userData) {
   return new Promise(async (resolve) => {

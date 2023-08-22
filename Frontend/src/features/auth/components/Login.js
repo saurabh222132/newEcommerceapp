@@ -122,7 +122,6 @@ export default function Login() {
             The backend of this app is hosted on a free site so the very first
             response may take some time ( 1 - 1.5 min ) to responde.
             <p className="mt-3 text-center text-sm text-blue-500">
-              {" "}
               use the id : 'admin@gmail.com' and password : 'Admin@1234' To see
               the admin Page
             </p>
