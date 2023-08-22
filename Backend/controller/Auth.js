@@ -7,19 +7,43 @@ dotenv.config();
 exports.createUser = async (req, res) => {
   const foundUser = await User.findOne({ email: req.body.email });
 
-  if (foundUser)
+  if (foundUser) {
     return res.status(201).send({ message: "User already exists!" });
+  } else {
+    const hashedpassword = bcrypt.hashSync(req.body.password, 12);
+    req.body["password"] = hashedpassword;
 
-  const hashedpassword = bcrypt.hashSync(req.body.password, 12);
-  req.body["password"] = hashedpassword;
+    const user = new User(req.body);
 
-  const user = new User(req.body);
+    try {
+      const doc = await user.save();
 
-  try {
-    const doc = await user.save();
-    res.status(201).json({ id: doc.id, role: doc.role });
-  } catch (err) {
-    res.status(400).json(err);
+      const accessToken = jwt.sign(
+        { userInfo: { _id: doc.id, role: doc.role, email: doc.email } },
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: "1m" }
+      );
+
+      const refreshToken = jwt.sign(
+        { userInfo: { _id: doc.id, role: doc.role, email: doc.email } },
+        process.env.REFRESH_TOKEN_SECRET,
+        { expiresIn: "14d" }
+      );
+
+      res.cookie("jwt", refreshToken, {
+        withCredentials: true,
+        secure: true,
+        sameSite: "none",
+        httpOnly: true, // accessible only by browser
+        maxAge: 14 * 24 * 60 * 60 * 1000, //after 14  day cookie will authometically deleted from the browser
+      });
+
+      res
+        .status(201)
+        .json({ id: doc.id, role: doc.role, accessToken: accessToken });
+    } catch (err) {
+      res.status(400).json(err);
+    }
   }
 };
 

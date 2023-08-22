@@ -1,9 +1,9 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useSelector, useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 
-import { selectLoggedInUser, createUserAsync } from '../authSlice';
-import { Link } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+import { selectLoggedInUser, createUserAsync } from "../authSlice";
+import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 export default function Signup() {
   const dispatch = useDispatch();
@@ -14,7 +14,6 @@ export default function Signup() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
 
   return (
     <>
@@ -41,7 +40,7 @@ export default function Signup() {
                   email: data.email,
                   password: data.password,
                   addresses: [],
-                  role:'user'
+                  role: "user",
                   //TODO: this role can be directly given on backend
                 })
               );
@@ -58,11 +57,11 @@ export default function Signup() {
               <div className="mt-2">
                 <input
                   id="email"
-                  {...register('email', {
-                    required: 'email is required',
+                  {...register("email", {
+                    required: "email is required",
                     pattern: {
                       value: /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi,
-                      message: 'email not valid',
+                      message: "email not valid",
                     },
                   })}
                   type="email"
@@ -86,8 +85,8 @@ export default function Signup() {
               <div className="mt-2">
                 <input
                   id="password"
-                  {...register('password', {
-                    required: 'password is required',
+                  {...register("password", {
+                    required: "password is required",
                     pattern: {
                       value:
                         /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
@@ -117,10 +116,10 @@ export default function Signup() {
               <div className="mt-2">
                 <input
                   id="confirmPassword"
-                  {...register('confirmPassword', {
-                    required: 'confirm password is required',
+                  {...register("confirmPassword", {
+                    required: "confirm password is required",
                     validate: (value, formValues) =>
-                      value === formValues.password || 'password not matching',
+                      value === formValues.password || "password not matching",
                   })}
                   type="password"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -144,13 +143,23 @@ export default function Signup() {
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            Already a Member?{' '}
+            Already a Member?{" "}
             <Link
               to="/login"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
               Log In
             </Link>
+          </p>
+          <p className="mt-10 text-center text-sm text-gray-500">
+            <p className="mt-3text-center text-sm text-red-500"> Note: </p>
+            The backend of this app is hosted on a free site so the very first
+            response may take some time ( 1 - 1.5 min ) to responde.
+            <p className="mt-3 text-center text-sm text-blue-500">
+              {" "}
+              use the id : 'admin@gmail.com' and password : 'Admin@1234' for
+              login To see the admin Page
+            </p>
           </p>
         </div>
       </div>

@@ -1,13 +1,19 @@
 import api from "../interceptor/axiosInterceptors";
+import axios from "axios";
+
+const baseURL = "http://localhost:8080";
 
 export function createUser(userData) {
   return new Promise(async (resolve) => {
-    const response = await api.post(
-      "/auth/signup",
+    const response = await axios.post(
+      baseURL + "/auth/signup",
 
-      userData
+      userData,
+      { withCredentials: true }
     );
     // const data = await response.json();
+
+    localStorage.setItem("accessToken", response.data.accessToken);
 
     if (response.data?.message) {
       alert(response.data["message"]);
@@ -20,7 +26,9 @@ export function createUser(userData) {
 export function checkUser(loginInfo) {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await api.post("/auth/login", loginInfo);
+      const response = await axios.post(baseURL + "/auth/login", loginInfo, {
+        withCredentials: true,
+      });
 
       window.localStorage.setItem("accessToken", response.data.accessToken);
       resolve({ data: response.data });
@@ -36,7 +44,9 @@ export function signOut() {
   return new Promise(async (resolve) => {
     // TODO: on server we will remove user session info
     localStorage.removeItem("accessToken");
-    const response = await api.get("/auth/logout");
+    const response = await axios.get(baseURL + "/auth/logout", {
+      withCredentials: true,
+    });
 
     resolve({ data: response.data.message });
   });

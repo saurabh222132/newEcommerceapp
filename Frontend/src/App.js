@@ -8,7 +8,7 @@ import CartPage from "./pages/CartPage";
 import Checkout from "./pages/Checkout";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import Protected from "./features/auth/components/Protected";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoggedInUser } from "./features/auth/authSlice";
 import { fetchItemsByUserIdAsync } from "./features/cart/cartSlice";
@@ -150,6 +150,8 @@ const router = createBrowserRouter([
     element: <PageNotFound></PageNotFound>,
   },
 ]);
+
+//page showing before getting response from the server.
 
 function App() {
   const dispatch = useDispatch();
