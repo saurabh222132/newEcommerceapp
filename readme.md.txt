@@ -1,6 +1,8 @@
 This project is host to the git hub : https://github.com/saurabh222132/newEcommerceapp
 
-and frontend deployed on netlify / and backend deployed on the render 
+and frontend deployed on netlify / and backend deployed on the 'render.com' and 'railway.app'
+
+Live Link: https://main--stupendous-hotteok-6cf370.netlify.app/
 
 > working of  project: 
 
